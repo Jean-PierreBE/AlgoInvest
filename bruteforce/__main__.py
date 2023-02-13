@@ -1,11 +1,12 @@
 from itertools import combinations
+from prettytable import PrettyTable
 import pandas as pd
-import numpy as np
 
 """constants"""
-data_file = "ActionData.csv"
+data_file = "bruteforce/ActionData.csv"
 data_delimeter = ";"
 max_price = 500
+COL_RESULTS = ['Combinaison', 'Prix total', 'Profit']
 
 """variables"""
 combinaison_opt = []
@@ -19,7 +20,7 @@ df_data["Profit"] = df_data["Coût par action (en euros)"]*df_data["Bénéfice 
 for row in df_data.itertuples():
     tab = []
     tab.append(row[2])
-    tab.append(row[3])
+    tab.append(row[4])
     data_dict[row[1]] = tab
 """array """
 array_actions = df_data['Actions #'].to_list()
@@ -37,12 +38,21 @@ for ind in range(0,len(comb)):
         for knd in range(0,len(comb[ind][jnd])):
             total_price = total_price + data_dict[comb[ind][jnd][knd]][0]
             total_profit = total_profit + data_dict[comb[ind][jnd][knd]][1]
-        #if total_price < max_price:
+        if total_price < max_price:
             tab_detail.append(comb[ind][jnd])
-            tab_detail.append(total_price)
-            tab_detail.append(total_profit)
+            tab_detail.append(round(total_price,2))
+            tab_detail.append(round(total_profit,2))
             combinaison_opt.append(tab_detail)
 
 combinaison_opt_sort = sorted(combinaison_opt, key=lambda x: x[2], reverse=True)
-for i in range(0,len(combinaison_opt_sort)):
-    print(combinaison_opt_sort[i])
+
+table_result = PrettyTable()
+table_result.title = "10 Meilleures combinaisons"
+table_result.field_names = COL_RESULTS
+for i in range(0,9):
+    table_result.add_row([combinaison_opt_sort[i][0],
+                               combinaison_opt_sort[i][1],
+                               combinaison_opt_sort[i][2]])
+
+print(table_result)
+
