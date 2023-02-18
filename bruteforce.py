@@ -3,7 +3,7 @@ from prettytable import PrettyTable
 import pandas as pd
 
 """constants"""
-data_file = "bruteforce/ActionData.csv"
+data_file = "files_bruteforce/ActionData.csv"
 data_delimeter = ";"
 max_price = 500
 COL_RESULTS = ['Combinaison', 'Prix total', 'Profit']
@@ -38,7 +38,7 @@ for ind in range(0,len(comb)):
         for knd in range(0,len(comb[ind][jnd])):
             total_price = total_price + data_dict[comb[ind][jnd][knd]][0]
             total_profit = total_profit + data_dict[comb[ind][jnd][knd]][1]
-        if total_price < max_price:
+        if total_price <= max_price:
             tab_detail.append(comb[ind][jnd])
             tab_detail.append(round(total_price,2))
             tab_detail.append(round(total_profit,2))
