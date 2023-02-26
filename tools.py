@@ -1,6 +1,6 @@
 from prettytable import PrettyTable
 import ObjectActions as obj
-COL_RESULTS = ['Combinaison', 'Prix total', 'Profit']
+COL_RESULTS = ['Combinaison', 'Prix total', 'Profit', 'temps total']
 max_price = 500
 
 '''Algorithme glouton'''
@@ -41,12 +41,13 @@ def getValeurMax(name, prices, profits, gains, capacite):
 """Affichage des résultats"""
 
 
-def print_result(data_input, title):
+def print_result(data_input, title, temps):
     table_result = PrettyTable()
     table_result.title = title
     table_result.field_names = COL_RESULTS
     table_result.add_row([data_input[0],
                           data_input[1],
-                          data_input[2]])
+                          data_input[2],
+                          round(temps, 4)])
 
     print(table_result)
