@@ -18,13 +18,14 @@ tps1 = time.time()
 df_data = pd.read_csv(DATA_FILE, delimiter=DATA_DELIMETER,
                       encoding='unicode_escape')
 """add colum """
-df_data["Profit"] = df_data["price"]*df_data["profit"]/100
+df_data["gain"] = df_data["price"]*df_data["profit"]/100
 """create dictionnary"""
 for row in df_data.itertuples():
     tab = []
     tab.append(row[2])
     tab.append(row[4])
     data_dict[row[1]] = tab
+
 """array """
 array_actions = df_data['name'].to_list()
 
@@ -33,9 +34,11 @@ nb_comb = 0
 for n in range(1, len(array_actions)+1):
     comb.append([i for i in combinations(array_actions, n)])
 
+print('len(comb) ' + str(len(comb)))
 """calcul for each combinaison"""
 for ind in range(0, len(comb)):
     nb_comb = nb_comb + len(comb[ind])
+    print('len(comb[ind]) ' + str(len(comb[ind])))
     for jnd in range(0, len(comb[ind])):
         tab_detail = []
         total_price = 0

@@ -22,15 +22,15 @@ def getValeurMax(name, prices, profits, gains, capacite):
     for objet in tableauTrie:
         poidsCourant = objet.price
         valeurCourante = objet.gain
-        if poidsCourant > 0:
-            if capacite - poidsCourant >= 0:
-                # on ajoute l'objet dans le sac
-                # On soustrait la capacité
-                capacite -= poidsCourant
-                compteurValeur += valeurCourante
-                cost += poidsCourant
-                # On ajoute la valeur dans le sac
-                bestRepartition.append(objet.name)
+        #if poidsCourant > 0:
+        if capacite - poidsCourant >= 0:
+            # on ajoute l'objet dans le sac
+            # On soustrait la capacité
+            capacite -= poidsCourant
+            compteurValeur += valeurCourante
+            cost += poidsCourant
+            # On ajoute la valeur dans le sac
+            bestRepartition.append(objet.name)
 
     result.append(tuple(bestRepartition))
     result.append(round(cost, 2))

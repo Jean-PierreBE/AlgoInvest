@@ -15,12 +15,15 @@ for key, value in DATA_FILES.items():
     df_data = pd.read_csv(value, delimiter=DATA_DELIMETER,
                           encoding='unicode_escape')
 
-    df_data['gain'] = df_data['price']*df_data['profit']/100
+    """select records if only price > 0"""
+    df_data_ok = df_data.loc[df_data['price'] > 0]
+    """compute column gain"""
+    df_data_ok['gain'] = df_data_ok['price']*df_data_ok['profit']/100
     """create array"""
-    noms_action = df_data['name'].to_list()
-    prix = df_data['price'].to_list()
-    taux_profits = df_data['profit'].to_list()
-    montant_profits = df_data['gain'].to_list()
+    noms_action = df_data_ok['name'].to_list()
+    prix = df_data_ok['price'].to_list()
+    taux_profits = df_data_ok['profit'].to_list()
+    montant_profits = df_data_ok['gain'].to_list()
 
     OptimalRepartition = getValeurMax(noms_action, prix, taux_profits,
                                       montant_profits,  max_price)
