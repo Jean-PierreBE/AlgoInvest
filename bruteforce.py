@@ -34,11 +34,9 @@ nb_comb = 0
 for n in range(1, len(array_actions)+1):
     comb.append([i for i in combinations(array_actions, n)])
 
-print('len(comb) ' + str(len(comb)))
 """calcul for each combinaison"""
 for ind in range(0, len(comb)):
     nb_comb = nb_comb + len(comb[ind])
-    print('len(comb[ind]) ' + str(len(comb[ind])))
     for jnd in range(0, len(comb[ind])):
         tab_detail = []
         total_price = 0
@@ -51,9 +49,6 @@ for ind in range(0, len(comb)):
             tab_detail.append(round(total_price, 2))
             tab_detail.append(round(total_profit, 2))
             combinaison_opt.append(tab_detail)
-
-print("nb_comb : " + str(nb_comb))
-print("len(combinaison_opt) : " + str(len(combinaison_opt)))
 
 combinaison_opt_sort = sorted(combinaison_opt,
                               key=lambda x: x[2], reverse=True)

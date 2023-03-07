@@ -10,31 +10,31 @@ def getValeurMax(name, prices, profits, gains, capacite):
     tableauTrie = []
     bestRepartition = []
     result = []
-    cost = 0
-    for i in range(len(prices)):
-        tableauTrie.append(obj.Actions(name[i], prices[i],
-                                       profits[i], gains[i], i))
+    coutTotal = 0
+    gainTotal = 0
+    prixUnitaire = 0
+    gainUnitaire = 0
 
-        # Trier les éléments du sac par leur rapport
+    for i in range(len(prices)):
+        tableauTrie.append(obj.Actions(name[i], prices[i], profits[i], gains[i], i))
+    # Trier les éléments du sac par profits
     tableauTrie.sort(reverse=True)
 
-    compteurValeur = 0
     for objet in tableauTrie:
-        poidsCourant = objet.price
-        valeurCourante = objet.gain
-        #if poidsCourant > 0:
-        if capacite - poidsCourant >= 0:
+        prixUnitaire = objet.price
+        gainUnitaire = objet.gain
+        if capacite - prixUnitaire >= 0:
             # on ajoute l'objet dans le sac
             # On soustrait la capacité
-            capacite -= poidsCourant
-            compteurValeur += valeurCourante
-            cost += poidsCourant
+            capacite -= prixUnitaire
+            gainTotal += gainUnitaire
+            coutTotal += prixUnitaire
             # On ajoute la valeur dans le sac
             bestRepartition.append(objet.name)
 
     result.append(tuple(bestRepartition))
-    result.append(round(cost, 2))
-    result.append(round(compteurValeur, 2))
+    result.append(round(coutTotal, 2))
+    result.append(round(gainTotal, 2))
     return result
 
 
